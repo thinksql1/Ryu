@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jien: The Buddhist Interpreter of Imperial Regalia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); display: none;
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        .popup-content {
+            background-color: white; padding: 2rem; border-radius: 0.75rem;
+            max-width: 500px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .popup-close {
+            position: absolute; top: 1rem; right: 1rem; cursor: pointer;
+            font-size: 1.5rem; color: #9ca3af;
+        }
+        .popup-close:hover { color: #111827; }
+
+        .key-term {
+            color: #7c3aed; font-weight: 600; cursor: pointer;
+            text-decoration: underline; text-decoration-style: dotted;
+        }
+        .key-term:hover { color: #6d28d9; }
+        
+        .collapsible-header {
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem; background-color: #e5e7eb; border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .collapsible-header:hover { background-color: #d1d5db; }
+        .collapsible-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out;
+            background-color: #f3f4f6; border-radius: 0 0 0.5rem 0.5rem;
+        }
+        .collapsible-content.open { padding: 1rem; }
+        .collapsible-header .arrow { transition: transform 0.3s; }
+        .collapsible-header.active .arrow { transform: rotate(90deg); }
+
+        .dream-quote {
+            background-color: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #0c4a6e;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Jien</h1>
+            <p class="text-xl text-gray-600">The Buddhist Interpreter of Imperial Regalia</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="mb-10 p-6 bg-white rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Tendai Abbot and Imperial Legitimator</h2>
+            <p class="text-lg leading-relaxed">
+                Jien (1155-1225) was a celebrated Tendai abbot who provided a significant Buddhist interpretation of Japanese imperial legitimacy. Living during a period when Esoteric Buddhism was firmly integrated into the political and religious mainstream of late Heian society, his work profoundly shaped the symbolic understanding of the emperor's power.
+            </p>
+        </section>
+        
+        <!-- Standard Academic Dimensions -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold mb-6 text-center">Standard Academic Dimensions</h2>
+            
+            <!-- Historical Context -->
+            <div class="mb-4">
+                <div class="collapsible-header">
+                    <h3 class="text-xl font-bold">Historical Context</h3>
+                    <span class="arrow text-2xl font-bold">&#x25B6;</span>
+                </div>
+                <div class="collapsible-content">
+                    <p>Jien lived during a period (1155-1225) when Esoteric Buddhism was firmly integrated into the political and religious mainstream of late Heian society. His interpretations reflect this mature phase of Buddhist influence on statecraft.</p>
+                </div>
+            </div>
+
+            <!-- Textual Role -->
+            <div class="mb-4">
+                <div class="collapsible-header">
+                    <h3 class="text-xl font-bold">Textual Role: Semiotic Refiguration of Regalia</h3>
+                    <span class="arrow text-2xl font-bold">&#x25B6;</span>
+                </div>
+                <div class="collapsible-content">
+                     <p class="mb-3">Jien's primary aim was to characterize the Japanese emperor as a <span class="key-term" data-definition="An ideal universal ruler who rules ethically and benevolently.">cakravartin</span> by reinterpreting the imperial regalia (gem, sword, mirror) through Buddhist symbolism. His work was a semiotic refiguration, enveloping Shinto and Confucian symbolism within a Buddhist system of signification.</p>
+                     <h4 class="font-semibold mb-2">Specific Interpretations of Regalia:</h4>
+                     <ul class="list-none space-y-3">
+                        <li>💎 <strong>Gem (Yasakani no magatama):</strong> Identified with Buddhalocanā and the empress (jewel queen of the cakravartin), symbolizing the Dharma.</li>
+                        <li>⚔️ <strong>Sword (Ama no murakumo no tsurugi):</strong> Identified with Ekākṣara-uṣṇīṣacakra and the emperor, symbolizing the ruler's power (and potential for violence) that must be controlled by the Dharma.</li>
+                        <li>鏡 <strong>Mirror (Yata no kagami):</strong> Identified with Amaterasu and Mahāvairocana, and the crown prince (Son of Heaven).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Moral and Ethical Themes -->
+             <div class="mb-4">
+                <div class="collapsible-header">
+                    <h3 class="text-xl font-bold">Moral and Ethical Themes</h3>
+                    <span class="arrow text-2xl font-bold">&#x25B6;</span>
+                </div>
+                <div class="collapsible-content">
+                     <ul class="list-disc pl-5 space-y-2">
+                        <li>Jien's interpretation emphasized the mutual completion of the "law of Buddhas" (<span class="key-term" data-definition="The 'law of the Buddha' or Buddhist Dharma.">buppō</span>) and the "law of kings" (<span class="key-term" data-definition="The 'law of kings' or secular law.">ōbō</span>) to bring order and benefit to the nation.</li>
+                        <li>He viewed the gem (Dharma) as playing an active role in shaping the emperor's character, effectively controlling the power of the sword (violence).</li>
+                        <li>The emperor's union with the empress was symbolic of the envelopment of the ruler's power within the Buddhist Dharma.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Linguistic Analysis -->
+            <div class="mb-4">
+                <div class="collapsible-header">
+                    <h3 class="text-xl font-bold">Linguistic Analysis</h3>
+                    <span class="arrow text-2xl font-bold">&#x25B6;</span>
+                </div>
+                <div class="collapsible-content">
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Jien employed a vocabulary identical to Kūkai's in symbolically constructing and legitimizing emperorship.</li>
+                        <li>His work contributed to the Buddhist domination of discourse on the emperor and emperorship in the late Heian and early Kamakura periods.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Think-Outside-the-Box Angles -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold mb-6 text-center">Think-Outside-the-Box Angles</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3">Hemispheric Framing</h3>
+                    <p><strong>Left Hemisphere:</strong> His detailed interpretations of the regalia and his systematic application of Buddhist doctrine demonstrate a logical, scholarly approach.</p>
+                    <div class="dream-quote mt-2">
+                        <p><strong>Right Hemisphere:</strong> The inspiration for his interpretation came from a dream where the crescent-moon-shaped gem turned into a sheath for the sword. This highlights intuitive insight and symbolic understanding.</p>
+                    </div>
+                </div>
+                
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3">Energetic/Archetypal Mapping</h3>
+                    <p>Jien acted as a <strong>Shaman/Interpreter</strong> archetype, bridging the realms of dreams, historical artifacts (regalia), and spiritual doctrine to provide profound insights into imperial power. He is also a <strong>Unifier</strong>, integrating Shinto and Confucian concepts under a Buddhist umbrella.</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3">Dream Analysis Style</h3>
+                    <p>His dream about the regalia was the direct impetus for his seminal interpretation of the coronation <span class="key-term" data-definition="An esoteric Buddhist consecration ceremony.">abhiṣeka</span>. This dream served as a conduit for a new symbolic understanding of imperial power, revealing a hidden harmony between virtue (gem) and might (sword).</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3">Symbolic Synesthesia</h3>
+                    <p>The image of the gem sheathing the sword evokes a sense of containment and control. Visually, one might imagine "polished jade constraining sharp steel." Aurally, it's like "a melody where a calming harmony envelops a dissonant note," with virtue (gem) subduing raw power (sword).</p>
+                </div>
+                
+                <div class="p-6 bg-white rounded-lg shadow-md md:col-span-2">
+                    <h3 class="text-xl font-bold mb-3">Relational Web</h3>
+                    <p>Jien's work was acknowledged by Emperor Gotoba, demonstrating his influence at the highest levels of power. His use of Kūkai's vocabulary shows a disciplic lineage of ideas, even across different Buddhist schools (Tendai vs. Shingon), highlighting the pervasive influence of Kūkai's esoteric framework on the discourse of power in Japan.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Pop-up Modal -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-content">
+            <span id="popup-close" class="popup-close">&times;</span>
+            <p id="popup-definition"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupDefinition = document.getElementById('popup-definition');
+            const popupClose = document.getElementById('popup-close');
+            
+            document.querySelectorAll('.key-term').forEach(term => {
+                term.addEventListener('click', () => {
+                    popupDefinition.textContent = term.getAttribute('data-definition');
+                    popupOverlay.style.display = 'flex';
+                });
+            });
+
+            const closePopup = () => { popupOverlay.style.display = 'none'; };
+            popupClose.addEventListener('click', closePopup);
+            popupOverlay.addEventListener('click', e => { if (e.target === popupOverlay) { closePopup(); } });
+
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    header.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        content.classList.remove('open');
+                    } else {
+                        content.classList.add('open');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

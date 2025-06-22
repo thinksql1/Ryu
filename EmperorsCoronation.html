@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Emperor's Coronation: A Ritual Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        .font-serif-jp {
+            font-family: 'Noto Serif JP', serif;
+        }
+        .card {
+            background-color: #162447;
+            border: 1px solid #1f4068;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(31, 64, 104, 0.5), 0 4px 6px -2px rgba(31, 64, 104, 0.4);
+        }
+        .btn-primary {
+            background-color: #e43f5a;
+            color: #ffffff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b8324f;
+        }
+        .btn-secondary {
+            background-color: #1f4068;
+            color: #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #1b3a5f;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1a1a2e;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid #1f4068;
+            width: 90%;
+            max-width: 600px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .progress-bar-bg {
+            background-color: #1f4068;
+        }
+        .progress-bar-fill {
+            background-color: #e43f5a;
+            transition: width 0.5s ease-in-out;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .final-transformation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="final-transformation-overlay" class="final-transformation"></div>
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold font-serif-jp text-white">天皇即位の儀式</h1>
+        <p class="text-xl md:text-2xl text-amber-300 font-serif-jp">The Emperor's Coronation: A Ritual Masterclass</p>
+        <p class="max-w-3xl mx-auto mt-4 text-gray-300">
+            An interactive journey into the esoteric Buddhist rituals that transformed a Japanese emperor into a divine Cakravartin, the ideal universal ruler.
+        </p>
+    </header>
+
+    <main class="max-w-5xl mx-auto space-y-12">
+        <!-- The 11 Procedures Section -->
+        <section id="coronation-steps" class="card p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4 font-serif-jp text-amber-300">The Eleven Procedures of Coronation</h2>
+            <p class="mb-6 text-gray-300">As standardized in the late Nara period, the coronation was a public and private spectacle. Click through the steps to witness the ceremony unfold, combining Chinese bureaucratic rites with native Japanese traditions.</p>
+            
+            <div class="mb-4">
+                <div class="progress-bar-bg w-full rounded-full h-2.5">
+                    <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="ritual-step-display" class="bg-gray-800 p-4 rounded-md min-h-[120px] mb-6 fade-in">
+                <h3 class="font-bold text-lg text-white" id="ritual-step-title">Step 1: The Emperor's Entry</h3>
+                <p class="text-gray-300" id="ritual-step-description">The emperor-to-be enters the Daigokuden, the Great Hall of State, screened from view by eighteen female attendants holding a curtain.</p>
+            </div>
+
+            <div class="flex justify-between items-center">
+                 <button id="prev-step-btn" class="btn-secondary py-2 px-4 rounded-lg opacity-50" disabled>&larr; Previous Step</button>
+                 <span id="step-counter" class="text-gray-400 font-semibold">Step 1 of 11</span>
+                 <button id="next-step-btn" class="btn-primary py-2 px-4 rounded-lg">Next Step &rarr;</button>
+            </div>
+        </section>
+
+        <!-- The Mudras Section -->
+        <section id="mudras" class="card p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4 font-serif-jp text-amber-300">The Five Secret Mudrās</h2>
+            <p class="mb-6 text-gray-300">Prior to the public ceremony, the emperor received secret transmission of mantras and mudrās. These five hand gestures, representing the five eyes of enlightenment, were crucial for the ritual transformation. Click on each mudrā to learn its meaning.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <button onclick="openModal('mudra1')" class="btn-secondary p-4 rounded-lg text-center">
+                    <span class="text-3xl">✊</span>
+                    <span class="block mt-2 font-semibold">Wisdom Fist</span>
+                </button>
+                <button onclick="openModal('mudra2')" class="btn-secondary p-4 rounded-lg text-center">
+                    <span class="text-3xl">🌐</span>
+                    <span class="block mt-2 font-semibold">Perfect Permeation</span>
+                </button>
+                <button onclick="openModal('mudra3')" class="btn-secondary p-4 rounded-lg text-center">
+                    <span class="text-3xl">🙏</span>
+                    <span class="block mt-2 font-semibold">Stūpa</span>
+                </button>
+                 <button onclick="openModal('mudra4')" class="btn-secondary p-4 rounded-lg text-center">
+                    <span class="text-3xl">👇</span>
+                    <span class="block mt-2 font-semibold">Guidance</span>
+                </button>
+                 <button onclick="openModal('mudra5')" class="btn-secondary p-4 rounded-lg text-center">
+                    <span class="text-3xl">👁️</span>
+                    <span class="block mt-2 font-semibold">Buddha's Eye</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- The Imperial Regalia Section -->
+        <section id="regalia" class="card p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4 font-serif-jp text-amber-300">The Three Imperial Regalia</h2>
+            <p class="mb-6 text-gray-300">The gem, sword, and mirror are the sacred treasures of Japan. The Tendai abbot Jien offered a unique Esoteric Buddhist interpretation, linking them to cosmic deities and the emperor's transformation. Click an icon to explore its dual meaning.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div onclick="openModal('regalia1')" class="card p-4 rounded-lg text-center cursor-pointer">
+                    <img src="https://placehold.co/100x100/e43f5a/ffffff?text=Gem" alt="The Imperial Gem" class="mx-auto rounded-full border-4 border-amber-300">
+                    <span class="block mt-2 font-bold text-lg">The Gem</span>
+                    <p class="text-sm text-gray-400">(Yasakani no Magatama)</p>
+                </div>
+                 <div onclick="openModal('regalia2')" class="card p-4 rounded-lg text-center cursor-pointer">
+                    <img src="https://placehold.co/100x100/e43f5a/ffffff?text=Sword" alt="The Imperial Sword" class="mx-auto rounded-full border-4 border-amber-300">
+                    <span class="block mt-2 font-bold text-lg">The Sword</span>
+                    <p class="text-sm text-gray-400">(Ama no Murakumo no Tsurugi)</p>
+                </div>
+                 <div onclick="openModal('regalia3')" class="card p-4 rounded-lg text-center cursor-pointer">
+                    <img src="https://placehold.co/100x100/e43f5a/ffffff?text=Mirror" alt="The Imperial Mirror" class="mx-auto rounded-full border-4 border-amber-300">
+                    <span class="block mt-2 font-bold text-lg">The Mirror</span>
+                    <p class="text-sm text-gray-400">(Yata no Kagami)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Transformation Section -->
+        <section class="text-center py-8">
+            <h2 class="text-2xl font-bold mb-4 font-serif-jp text-amber-300">The Cakravartin Transformation</h2>
+            <p class="max-w-2xl mx-auto mb-6 text-gray-300">Upon completion of the rites, the emperor is no longer just a sovereign of Japan. He is ritually reborn as a Cakravartin, an ideal Buddhist monarch whose righteous rule aligns the earthly realm with the cosmic Dharma.</p>
+            <button id="transform-btn" class="btn-primary py-3 px-6 rounded-lg text-lg animate-pulse">Witness the Transformation</button>
+        </section>
+
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modal-container" class="modal-overlay" onclick="closeAllModals()">
+        <!-- Mudra Modals -->
+        <div id="modal-mudra1" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-mudra2" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-mudra3" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-mudra4" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-mudra5" class="modal-content" onclick="event.stopPropagation()"></div>
+        
+        <!-- Regalia Modals -->
+        <div id="modal-regalia1" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-regalia2" class="modal-content" onclick="event.stopPropagation()"></div>
+        <div id="modal-regalia3" class="modal-content" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATA ---
+            const ritualSteps = [
+                { title: "Step 1: The Emperor's Entry", description: "The emperor-to-be enters the Daigokuden, the Great Hall of State, screened from view by eighteen female attendants holding a curtain." },
+                { title: "Step 2: Ascent to the Takamikura", description: "Concealed behind the curtain, the emperor-to-be ascends to the takamikura, the octagonal coronation platform, whose sides are covered with drapes." },
+                { title: "Step 3: The Emergence", description: "The queen and ladies-in-waiting raise the front drapes of the takamikura, and the new emperor emerges before the audience." },
+                { title: "Step 4: Incense Offering", description: "Incense is offered by imperial scribes. This is a rite adapted from Chinese coronation ceremonies." },
+                { title: "Step 5: Obeisance", description: "Princes, ministers, and officials bow before the emperor, acknowledging his new status." },
+                { title: "Step 6: Imperial Edict", description: "The edict of the new emperor announcing the beginning of the new reign is read aloud." },
+                { title: "Step 7: Divine Hymns", description: "Auspicious divine hymns are offered by ministers, a native Japanese rite." },
+                { title: "Step 8: Presentation of the Regalia", description: "The three imperial regalia—the gem, the sword, and the mirror—are presented to the emperor." },
+                { title: "Step 9: Ritual Dance", description: "Princes, ministers, and officials bow twice before the emperor and offer a ritual dance." },
+                { title: "Step 10: Military Acclaim", description: "Military officers hail the emperor, another rite signifying him as the Son of Heaven." },
+                { title: "Step 11: The Emperor Retires", description: "The emperor retires, again surrounded and concealed by the eighteen female attendants." }
+            ];
+
+            const modalData = {
+                'mudra1': { title: 'Mudra of the Wisdom Fist (chiken\'in)', body: `This mudrā represents the first eye: the human eye (nikugen). It symbolizes the unity of the material and spiritual realms and is associated with Mahāvairocana Buddha, signifying the emperor's role as the King of Dharma.` },
+                'mudra2': { title: 'Mudra of Perfect Permeation (musho fushiin)', body: `This mudrā represents the second eye: the heavenly eye (tengen). It signifies unlimited vision and the boundless nature of the emperor's enlightened consciousness, able to perceive all realms.` },
+                'mudra3': { title: 'Mudra of Stūpa (sotobain)', body: `This mudrā represents the third eye: the wisdom eye (egen). It symbolizes the enlightened mind, the attainment of the eye of emptiness, and the emperor's connection to the body of the Dharma.` },
+                'mudra4': { title: 'Mudra of Guidance (indoin)', body: `This mudrā represents the fourth eye: the Dharma eye (hogen). It signifies the compassionate eye of a bodhisattva, reflecting the emperor's duty to guide all beings to salvation.` },
+                'mudra5': { title: 'Mudra of the Buddha\'s Eye (butsugen\'in)', body: `This mudrā represents the fifth eye: the eye of Buddhahood (butsugen). It resembles the cintāmaṇi (wish-granting jewel) and is the aggregate of the other four eyes. It is linked to the bodhisattva Buddhalocana and signifies the emperor's ultimate attainment of Buddhahood and power as a cakravartin.` },
+                'regalia1': { 
+                    title: 'The Divine Gem (Yasakani no Magatama)', 
+                    body: `
+                        <div id="toggle-gem">
+                            <button onclick="toggleView('gem', 'shinto')" class="btn-toggle active p-2 rounded-l-md">Shintō View</button>
+                            <button onclick="toggleView('gem', 'buddhist')" class="btn-toggle p-2 rounded-r-md">Buddhist View</button>
+                        </div>
+                        <div id="shinto-gem" class="mt-4">
+                            <h4 class="font-bold text-lg text-amber-300">Symbol of Benevolence</h4>
+                            <p>In traditional mythology, the gem is associated with the moon and represents the virtue of benevolence, one of the primary qualities of a ruler.</p>
+                        </div>
+                        <div id="buddhist-gem" class="mt-4 hidden">
+                            <h4 class="font-bold text-lg text-amber-300">Buddhalocanā & The Empress</h4>
+                            <p>Jien interprets the gem as the embodiment of the empress, the 'jewel queen' of a cakravartin, and ultimately the female bodhisattva Buddhalocanā—the 'Eye of the Buddhas.' It is the pure, immaculate jewel (cintāmaṇi) that symbolizes the Dharma itself, enveloping and legitimizing the emperor's power.</p>
+                        </div>`
+                },
+                'regalia2': { 
+                    title: 'The Divine Sword (Ama no Murakumo no Tsurugi)', 
+                    body: `
+                        <div id="toggle-sword">
+                            <button onclick="toggleView('sword', 'shinto')" class="btn-toggle active p-2 rounded-l-md">Shintō View</button>
+                            <button onclick="toggleView('sword', 'buddhist')" class="btn-toggle p-2 rounded-r-md">Buddhist View</button>
+                        </div>
+                        <div id="shinto-sword" class="mt-4">
+                            <h4 class="font-bold text-lg text-amber-300">Symbol of Valor</h4>
+                            <p>The sword represents the charismatic and martial power of the imperial ancestors, symbolizing the emperor's strength and valor.</p>
+                        </div>
+                        <div id="buddhist-sword" class="mt-4 hidden">
+                            <h4 class="font-bold text-lg text-amber-300">Ekākṣara-uṣṇīṣacakra & The Emperor</h4>
+                            <p>For Jien, the sword is the emperor himself, ritually transformed into the cakravartin, who is identified with the deity Ekākṣara-uṣṇīṣacakra. The union of the sword (emperor) with its sheath, the gem (Dharma/empress), signifies the ruler's power being controlled and perfected by Buddhist law.</p>
+                        </div>`
+                },
+                'regalia3': { 
+                    title: 'The Divine Mirror (Yata no Kagami)', 
+                    body: `
+                        <div id="toggle-mirror">
+                            <button onclick="toggleView('mirror', 'shinto')" class="btn-toggle active p-2 rounded-l-md">Shintō View</button>
+                            <button onclick="toggleView('mirror', 'buddhist')" class="btn-toggle p-2 rounded-r-md">Buddhist View</button>
+                        </div>
+                        <div id="shinto-mirror" class="mt-4">
+                            <h4 class="font-bold text-lg text-amber-300">Symbol of Wisdom</h4>
+                            <p>The mirror is the most sacred regalia, symbolizing the sun goddess Amaterasu herself. It represents the wisdom and purity of the emperor's heart and his direct divine lineage.</p>
+                        </div>
+                        <div id="buddhist-mirror" class="mt-4 hidden">
+                            <h4 class="font-bold text-lg text-amber-300">Mahāvairocana & The Crown Prince</h4>
+                            <p>Jien argues the mirror is born from the union of the gem and sword. It is the Son of Heaven, the crown prince, who embodies Amaterasu. This identity is prefigured by a greater cosmic truth: Amaterasu is the Japanese manifestation of Mahāvairocana, the ultimate cosmic Buddha. Thus, the emperor's legitimacy is established through Buddhist symbolism even before the Shintō rites.</p>
+                        </div>`
+                }
+            };
+
+            // --- Ritual Steps Logic ---
+            let currentStep = 0;
+            const stepTitleEl = document.getElementById('ritual-step-title');
+            const stepDescEl = document.getElementById('ritual-step-description');
+            const stepDisplayEl = document.getElementById('ritual-step-display');
+            const nextBtn = document.getElementById('next-step-btn');
+            const prevBtn = document.getElementById('prev-step-btn');
+            const stepCounterEl = document.getElementById('step-counter');
+            const progressBar = document.getElementById('progress-bar');
+
+            function updateStepDisplay() {
+                const step = ritualSteps[currentStep];
+                stepDisplayEl.classList.remove('fade-in');
+                void stepDisplayEl.offsetWidth; // Trigger reflow
+                stepDisplayEl.classList.add('fade-in');
+                stepTitleEl.textContent = step.title;
+                stepDescEl.textContent = step.description;
+                stepCounterEl.textContent = `Step ${currentStep + 1} of ${ritualSteps.length}`;
+                
+                // Update progress bar
+                const progressPercentage = ((currentStep + 1) / ritualSteps.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                // Update button states
+                prevBtn.disabled = currentStep === 0;
+                nextBtn.disabled = currentStep === ritualSteps.length - 1;
+                prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+                nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < ritualSteps.length - 1) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateStepDisplay();
+                }
+            });
+
+            // --- Modal Logic ---
+            const modalContainer = document.getElementById('modal-container');
+            window.openModal = function(id) {
+                closeAllModals(true); // Close any open modals instantly
+                const modal = document.getElementById('modal-' + id);
+                const data = modalData[id];
+
+                if (modal && data) {
+                    modal.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-4 font-serif-jp text-amber-300">${data.title}</h3>
+                        <div class="text-gray-300">${data.body}</div>
+                        <button onclick="closeAllModals()" class="btn-primary py-2 px-4 rounded-lg mt-6 float-right">Close</button>
+                    `;
+                    modal.style.display = 'block';
+                    modalContainer.classList.add('active');
+                }
+            }
+
+            window.closeAllModals = function(instant = false) {
+                if (instant) {
+                    modalContainer.style.transition = 'none';
+                } else {
+                    modalContainer.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+                }
+
+                modalContainer.classList.remove('active');
+                const modals = modalContainer.querySelectorAll('.modal-content');
+                modals.forEach(m => m.style.display = 'none');
+            }
+            
+            // --- Regalia Toggle Logic ---
+            window.toggleView = function(item, view) {
+                const shintoView = document.getElementById(`shinto-${item}`);
+                const buddhistView = document.getElementById(`buddhist-${item}`);
+                const toggleButtons = document.querySelectorAll(`#toggle-${item} .btn-toggle`);
+
+                if (view === 'shinto') {
+                    shintoView.style.display = 'block';
+                    buddhistView.style.display = 'none';
+                    toggleButtons[0].classList.add('active');
+                    toggleButtons[1].classList.remove('active');
+                } else {
+                    shintoView.style.display = 'none';
+                    buddhistView.style.display = 'block';
+                    toggleButtons[0].classList.remove('active');
+                    toggleButtons[1].classList.add('active');
+                }
+            }
+            
+            // --- Transformation Logic ---
+            const transformBtn = document.getElementById('transform-btn');
+            const transformOverlay = document.getElementById('final-transformation-overlay');
+            
+            transformBtn.addEventListener('click', () => {
+                transformOverlay.style.display = 'block';
+                setTimeout(() => {
+                    transformOverlay.style.display = 'none';
+                    alert('The Emperor has been transformed into the Cakravartin, the universal ruler. The ritual is complete.');
+                }, 3000);
+            });
+
+            // Initial call to set up the first step
+            updateStepDisplay();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kūkai's Language Lab: Unlocking Japanese Script</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf6e3; /* Parchment color */
+            color: #586e75; /* Dark text for readability */
+        }
+        .font-jp-serif { font-family: 'Noto Serif JP', serif; }
+        .font-jp-mincho { font-family: 'Sawarabi Mincho', serif; }
+        .font-jp-sans { font-family: 'Noto Sans JP', sans-serif; }
+
+        .card {
+            background-color: #f5eeda;
+            border: 1px solid #dcd3b8;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .btn-primary {
+            background-color: #859900; /* Green */
+            color: #ffffff;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover { background-color: #93a1a1; }
+
+        .script-display {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee8d5;
+            border-radius: 0.5rem;
+            border: 1px dashed #b58900;
+        }
+
+        /* Iroha Poem Styling */
+        .iroha-poem {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            height: 450px;
+            float: right;
+            margin-left: 2rem;
+        }
+        .iroha-poem .highlight {
+            color: #dc322f; /* Red */
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(220, 50, 47, 0.5);
+        }
+        .iroha-secret {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Kana Evolution Animation */
+        #kana-container { position: relative; width: 100px; height: 100px; }
+        #kana-container .char {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Custom Slider */
+        .slider-container {
+            --slider-bg: #eee8d5;
+            --track-bg: #d3cbb7;
+            --thumb-bg: #b58900;
+            --thumb-border: #657b83;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: var(--slider-bg);
+        }
+        .slider-wrapper { display: flex; align-items: center; gap: 1rem; }
+        input[type=range] {
+            -webkit-appearance: none;
+            flex-grow: 1;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 6px;
+            background: var(--track-bg);
+            border-radius: 3px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            margin-top: -7px;
+            width: 20px;
+            height: 20px;
+            background: var(--thumb-bg);
+            border-radius: 50%;
+            border: 2px solid var(--thumb-border);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold font-jp-serif text-gray-700">空海の言語研究室</h1>
+        <p class="text-xl md:text-2xl text-[#b58900] font-jp-serif">Kūkai's Language Lab: Unlocking Japanese Script</p>
+        <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+            An interactive exploration of Kūkai's revolutionary language theories and their impact on the development of the Japanese writing system.
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-12">
+        
+        <!-- Script Comparison Slider -->
+        <section class="card p-6 rounded-lg">
+            <h2 class="text-2xl font-bold font-jp-serif mb-4">Script & Philosophy: A Tale of Two Views</h2>
+            <p class="mb-6">Kūkai challenged the state-sponsored Confucian view of language. For Confucians, Chinese script was a tool for social order. For Kūkai, phonetic Sanskrit was closer to ultimate truth. Use the slider to explore these opposing philosophies.</p>
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <span class="font-bold">Confucian</span>
+                    <input type="range" id="philosophy-slider" min="0" max="100" value="50">
+                    <span class="font-bold">Kūkai</span>
+                </div>
+            </div>
+            <div id="philosophy-display" class="mt-4 p-4 bg-white rounded-md border border-gray-300 transition-all duration-300">
+                <!-- Content will be injected by JS -->
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Man'yōgana Converter -->
+            <section class="card p-6 rounded-lg">
+                <h2 class="text-2xl font-bold font-jp-serif mb-4">The Man'yōgana Converter</h2>
+                <p class="mb-4">Before kana, Japanese sounds were written using Chinese characters for their phonetic value, a system called man'yōgana. Click a syllable below to see some of the complex characters used to represent it.</p>
+                <div class="flex justify-around mb-4">
+                    <button onclick="showManyogana('ka')" class="font-jp-sans text-2xl p-2 hover:bg-yellow-100 rounded">か (ka)</button>
+                    <button onclick="showManyogana('na')" class="font-jp-sans text-2xl p-2 hover:bg-yellow-100 rounded">な (na)</button>
+                    <button onclick="showManyogana('ru')" class="font-jp-sans text-2xl p-2 hover:bg-yellow-100 rounded">る (ru)</button>
+                </div>
+                <div id="manyogana-display" class="script-display font-jp-mincho">
+                    <!-- Content will be injected by JS -->
+                </div>
+            </section>
+
+            <!-- Kana Evolution Animator -->
+            <section class="card p-6 rounded-lg">
+                <h2 class="text-2xl font-bold font-jp-serif mb-4">The Evolution of Kana</h2>
+                <p class="mb-4">The complex man'yōgana characters were eventually simplified into the fluid kana scripts used today. Press the button to watch the character for "i" (伊) evolve into its modern form (い).</p>
+                <div class="flex items-center justify-around">
+                    <div id="kana-container" class="script-display">
+                        <div id="manyogana-char" class="char font-jp-mincho">伊</div>
+                        <div id="kana-char" class="char font-jp-sans opacity-0">い</div>
+                    </div>
+                    <button id="evolve-btn" class="btn-primary py-2 px-4 rounded-lg">Evolve Script</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Iroha Poem Decoder -->
+        <section class="card p-6 rounded-lg overflow-hidden">
+            <h2 class="text-2xl font-bold font-jp-serif mb-4">The Iroha Poem: A Secret Message</h2>
+            <div id="iroha-container">
+                <div class="iroha-poem font-jp-mincho">
+                    <span data-pos="0">い</span><span data-pos="1">ろ</span><span data-pos="2">は</span><span data-pos="3">に</span><span data-pos="4">ほ</span><span data-pos="5">へ</span><span data-pos="6" class="last-char">と</span>
+                    <span data-pos="7">ち</span><span data-pos="8">り</span><span data-pos="9">ぬ</span><span data-pos="10">る</span><span data-pos="11">を</span>
+                    <span data-pos="12">わ</span><span data-pos="13">か</span><span data-pos="14">よ</span><span data-pos="15">た</span><span data-pos="16">れ</span><span data-pos="17">そ</span>
+                    <span data-pos="18" class="last-char">つ</span><span data-pos="19">ね</span><span data-pos="20">な</span><span data-pos="21">ら</span><span data-pos="22">む</span>
+                    <span data-pos="23">う</span><span data-pos="24">ゐ</span><span data-pos="25">の</span><span data-pos="26">お</span><span data-pos="27">く</span><span data-pos="28">や</span><span data-pos="29">ま</span>
+                    <span data-pos="30" class="last-char">け</span><span data-pos="31">ふ</span><span data-pos="32">こ</span><span data-pos="33">え</span><span data-pos="34">て</span>
+                    <span data-pos="35">あ</span><span data-pos="36">さ</span><span data-pos="37">き</span><span data-pos="38">ゆ</span><span data-pos="39">め</span><span data-pos="40">み</span><span data-pos="41">し</span>
+                    <span data-pos="42" class="last-char">ゑ</span><span data-pos="43">ひ</span><span data-pos="44">も</span><span data-pos="45">せ</span><span data-pos="46" class="last-char">す</span>
+                </div>
+                <div class="prose max-w-none">
+                    <p>The Iroha poem, long attributed to Kūkai, is a perfect pangram containing every unique syllable of classical Japanese exactly once. While on the surface it's a Buddhist meditation on impermanence, a hidden message reveals a deeper meaning.</p>
+                    <p class="font-italic">
+                        "Although its scent still lingers on, the form of a flower has scattered away. For whom will the glory of this world remain unchanged? Arriving today at the yonder side of the deep mountains of evanescent existence, we shall never allow ourselves to drift away, intoxicated, in the world of shallow dreams."
+                    </p>
+                    <button id="reveal-btn" class="btn-primary py-2 px-4 rounded-lg mt-4">Reveal Secret Message</button>
+                    <div id="iroha-secret-display" class="iroha-secret opacity-0 mt-4 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                        <h3 class="font-bold font-jp-serif">咎なくて死す (toga nakute shisu)</h3>
+                        <p>Reading the last character of each line reveals the phrase "died without sin." Scholars like Kakuban interpreted this as a eulogy for Kūkai, encapsulating his image as a pure figure who engaged with the world yet remained untainted, perfectly aligning with the poem's theme of transcendence.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Philosophy Slider Logic ---
+        const slider = document.getElementById('philosophy-slider');
+        const display = document.getElementById('philosophy-display');
+
+        const confucianText = `
+            <h3 class="font-bold font-jp-serif text-lg text-gray-800">The Confucian View: Rectification of Names</h3>
+            <p class="mt-2 text-gray-600">Emperor Saga promoted Chinese writing and Confucian ideals. Language was seen as a tool to maintain social and cosmic order. Each character had a correct, inherent meaning tied to its object ("Let the ruler be a ruler..."). Using characters phonetically was a deviation that could disrupt this essential order.</p>
+        `;
+        const kukaiText = `
+            <h3 class="font-bold font-jp-serif text-lg text-[#859900]">Kūkai's View: The Primacy of Sanskrit</h3>
+            <p class="mt-2 text-gray-600">Kūkai argued that phonetic Sanskrit was a "true" script, arising from the principle of emptiness. In contrast, he saw hieroglyphic Chinese script as arising from "delusions," creating an illusion that objects have a fixed reality independent of language. This theory provided a powerful justification for developing a native phonetic script.</p>
+        `;
+
+        function updatePhilosophyDisplay() {
+            const value = slider.value;
+            if (value < 40) {
+                display.innerHTML = confucianText;
+                display.style.borderColor = '#6c71c4'; // Violet
+            } else if (value > 60) {
+                display.innerHTML = kukaiText;
+                display.style.borderColor = '#859900'; // Green
+            } else {
+                display.innerHTML = '<p class="text-center text-gray-500">Slide to explore the two philosophies of language.</p>';
+                display.style.borderColor = '#dcd3b8';
+            }
+        }
+        slider.addEventListener('input', updatePhilosophyDisplay);
+        updatePhilosophyDisplay();
+
+        // --- Man'yōgana Converter Logic ---
+        const manyoganaData = {
+            'ka': ['加', '可', '何', '香'],
+            'na': ['奈', '那', '名', '菜'],
+            'ru': ['流', '留', '婁', '屢']
+        };
+        const manyoganaDisplay = document.getElementById('manyogana-display');
+        window.showManyogana = (syllable) => {
+            manyoganaDisplay.textContent = manyoganaData[syllable].join(' ');
+        };
+        showManyogana('ka'); // Initial state
+
+        // --- Kana Evolution Logic ---
+        const evolveBtn = document.getElementById('evolve-btn');
+        const manyoganaChar = document.getElementById('manyogana-char');
+        const kanaChar = document.getElementById('kana-char');
+        let isEvolved = false;
+
+        evolveBtn.addEventListener('click', () => {
+            if (isEvolved) {
+                manyoganaChar.style.opacity = '1';
+                kanaChar.style.opacity = '0';
+                evolveBtn.textContent = 'Evolve Script';
+            } else {
+                manyoganaChar.style.opacity = '0';
+                kanaChar.style.opacity = '1';
+                evolveBtn.textContent = 'Reset';
+            }
+            isEvolved = !isEvolved;
+        });
+
+        // --- Iroha Poem Logic ---
+        const revealBtn = document.getElementById('reveal-btn');
+        const secretDisplay = document.getElementById('iroha-secret-display');
+        const lastChars = document.querySelectorAll('.iroha-poem .last-char');
+
+        revealBtn.addEventListener('click', () => {
+            lastChars.forEach(char => char.classList.toggle('highlight'));
+            if (secretDisplay.style.opacity === '1') {
+                secretDisplay.style.opacity = '0';
+                revealBtn.textContent = 'Reveal Secret Message';
+            } else {
+                secretDisplay.style.opacity = '1';
+
+                revealBtn.textContent = 'Hide Secret';
+            }
+        });
+    });
+    </script>
+</body>
+</html>
