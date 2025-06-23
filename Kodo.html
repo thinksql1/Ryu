@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Way of Fragrance: An Introduction to Kōdō</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles and Tailwind Config -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F5EF;
+            color: #4A4A4A;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Noto Serif JP', serif;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            border-bottom: 1px dotted #A88B5A;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #5A6D57;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+        .accordion-button.active + .accordion-content {
+            max-height: 500px; /* Adjust as needed */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .timeline-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, margin 0.7s ease-in-out;
+        }
+        .timeline-button.active + .timeline-content {
+            max-height: 1000px; /* Adjust as needed */
+            margin-top: 1rem;
+        }
+        .active-nav {
+             color: #C0A062;
+             font-weight: 600;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kodo-cream': '#F8F5EF',
+                        'kodo-dark': '#3D3D3D',
+                        'kodo-green': '#5A6D57',
+                        'kodo-gold': '#C0A062',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kodo-cream text-kodo-dark">
+
+    <!-- Header & Navigation -->
+    <header class="bg-kodo-cream/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-serif font-bold text-kodo-green">Kōdō</a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium tracking-wide">
+                <a href="#intro" class="hover:text-kodo-gold transition-colors duration-300 nav-link">Introduction</a>
+                <a href="#history" class="hover:text-kodo-gold transition-colors duration-300 nav-link">History</a>
+                <a href="#virtues" class="hover:text-kodo-gold transition-colors duration-300 nav-link">Virtues</a>
+                <a href="#language" class="hover:text-kodo-gold transition-colors duration-300 nav-link">Language</a>
+                <a href="#schools" class="hover:text-kodo-gold transition-colors duration-300 nav-link">Schools</a>
+                <a href="#mastery" class="hover:text-kodo-gold transition-colors duration-300 nav-link">Mastery</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-kodo-gold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2 bg-kodo-cream">
+            <a href="#intro" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Introduction</a>
+            <a href="#history" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">History</a>
+            <a href="#virtues" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Ten Virtues</a>
+            <a href="#language" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Language of Scent</a>
+            <a href="#schools" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">The Two Houses</a>
+            <a href="#mastery" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">The Path of Mastery</a>
+            <a href="#synesthesia" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Synesthesia</a>
+            <a href="#authenticity" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Authenticity</a>
+            <a href="#codifying" class="block hover:text-kodo-gold transition-colors duration-300 nav-link">Codifying a Ryū</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section 1: Introduction to Kōdō -->
+        <section id="intro" class="min-h-screen flex items-center bg-cover bg-center bg-no-repeat" style="background-image: url('https://placehold.co/1920x1080/F8F5EF/F8F5EF');">
+            <div class="bg-kodo-cream/80 backdrop-blur-sm p-8 md:p-12 rounded-lg max-w-4xl mx-auto text-center shadow-lg">
+                <h1 class="text-4xl md:text-6xl font-serif text-kodo-green mb-4">The Scented Path</h1>
+                <h2 class="text-2xl md:text-3xl font-serif text-kodo-dark mb-6">Kōdō – The Way of Fragrance</h2>
+                <p class="text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+                    Kōdō (香道) is the Japanese art of appreciating incense, standing alongside 
+                    <span class="tooltip">kadō (華道)
+                        <span class="tooltiptext">The way of flowers; Japanese flower arrangement.</span>
+                    </span> and 
+                    <span class="tooltip">chadō (茶道)
+                        <span class="tooltiptext">The way of tea; the Japanese tea ceremony.</span>
+                    </span> 
+                    as one of Japan's three classical arts of refinement. Spanning nearly <strong>1,500 years</strong>, its history reflects the spiritual, social, and aesthetic currents of Japanese civilization. Kōdō's evolution is not static preservation, but a process of <strong>continuous adaptation and accretion</strong>, with each era adding its own layer of meaning. This adaptability provides a powerful precedent for its continued evolution in new cultural contexts.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2: The History of Kōdō -->
+        <section id="history" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">A Journey Through Time</h2>
+                    <p class="text-lg text-gray-600">The Evolution of Kōdō</p>
+                </div>
+
+                <div class="relative max-w-3xl mx-auto">
+                    <!-- The vertical line -->
+                    <div class="absolute left-4 md:left-1/2 -ml-px w-0.5 h-full bg-kodo-gold/30"></div>
+
+                    <!-- Timeline Item 1: Asuka Period -->
+                    <div class="timeline-item mb-12">
+                        <div class="flex md:items-center flex-col md:flex-row">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-kodo-green text-kodo-cream flex items-center justify-center z-10">仏</div>
+                            <div class="md:ml-6 mt-4 md:mt-0 w-full">
+                                <button class="timeline-button w-full text-left bg-kodo-cream p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-serif text-kodo-green">The Arrival of Fragrance: Buddhist Roots</h3>
+                                    <p class="text-sm font-semibold text-kodo-gold">6th Century / Asuka Period</p>
+                                </button>
+                                <div class="timeline-content">
+                                    <div class="bg-white p-6 rounded-b-lg border border-t-0 border-gray-200">
+                                        <p>Incense arrived with Buddhism from the mainland in the 6th century. The <i>Nihon Shoki</i> records a large piece of <strong class="font-semibold text-kodo-dark">kōboku</strong> (fragrant wood) washing ashore Awaji Island in 595 CE. Initially used in <strong class="font-semibold text-kodo-dark">sonaekō</strong> (offerings), it established the spiritual context of incense for cleansing the body and spirit (<strong class="font-semibold text-kodo-dark">shōjō shinshin</strong>).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2: Heian Period -->
+                    <div class="timeline-item mb-12">
+                         <div class="flex md:items-center flex-col md:flex-row">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-kodo-green text-kodo-cream flex items-center justify-center z-10">雅</div>
+                            <div class="md:ml-6 mt-4 md:mt-0 w-full">
+                                <button class="timeline-button w-full text-left bg-kodo-cream p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-serif text-kodo-green">The Perfumed Court: Aesthetic Appreciation</h3>
+                                    <p class="text-sm font-semibold text-kodo-gold">794-1185 / Heian Period</p>
+                                </button>
+                                <div class="timeline-content">
+                                    <div class="bg-white p-6 rounded-b-lg border border-t-0 border-gray-200">
+                                        <p>Incense blossomed into a sophisticated pastime among court nobility, used to perfume rooms and robes. This era saw the development of <strong class="font-semibold text-kodo-dark">nerikō</strong> (kneaded incense) and <strong class="font-semibold text-kodo-dark">kumikō</strong> (incense-matching games), linking fragrance to poetry and marking a shift to aesthetic play, as depicted in <i>The Tale of Genji</i>.</p>
+                                        <img src="https://placehold.co/600x400/F8F5EF/3D3D3D?text=Heian+Court+Art" alt="Heian Period Artwork" class="mt-4 rounded-lg shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400';">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3: Muromachi Period -->
+                    <div class="timeline-item mb-12">
+                         <div class="flex md:items-center flex-col md:flex-row">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-kodo-green text-kodo-cream flex items-center justify-center z-10">武</div>
+                            <div class="md:ml-6 mt-4 md:mt-0 w-full">
+                                <button class="timeline-button w-full text-left bg-kodo-cream p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-serif text-kodo-green">The Way of the Warrior: Samurai Adoption</h3>
+                                    <p class="text-sm font-semibold text-kodo-gold">1336-1573 / Muromachi Period</p>
+                                </button>
+                                <div class="timeline-content">
+                                    <div class="bg-white p-6 rounded-b-lg border border-t-0 border-gray-200">
+                                        <p>The samurai class adopted the practice for mental training. Kōdō was formalized as a <strong class="font-semibold text-kodo-dark">dō (道)</strong>, a 'Way' or spiritual discipline, under Shogun Ashikaga Yoshimasa. He tasked Sanetaka Sanjonishi and Sōshin Shino with codifying its rules, elevating it to one of the quintessential <strong class="font-semibold text-kodo-dark">geidō</strong> (refined arts).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 4: Edo to Modern Era -->
+                    <div class="timeline-item">
+                         <div class="flex md:items-center flex-col md:flex-row">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-kodo-green text-kodo-cream flex items-center justify-center z-10">今</div>
+                            <div class="md:ml-6 mt-4 md:mt-0 w-full">
+                                <button class="timeline-button w-full text-left bg-kodo-cream p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-serif text-kodo-green">Consolidation of a Tradition</h3>
+                                    <p class="text-sm font-semibold text-kodo-gold">1603-Present / Edo to Modern Era</p>
+                                </button>
+                                <div class="timeline-content">
+                                    <div class="bg-white p-6 rounded-b-lg border border-t-0 border-gray-200">
+                                        <p>The practice spread to wealthy merchants in the Edo period. The Meiji Restoration brought decline for many traditional arts, leading to the consolidation and survival of the two primary lineages: <strong class="font-semibold text-kodo-dark">Oie-ryū</strong> and <strong class="font-semibold text-kodo-dark">Shino-ryū</strong>, a testament to their strength.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Ten Virtues of Kō -->
+        <section id="virtues" class="py-20 md:py-32 bg-kodo-cream">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">The Profound Benefits</h2>
+                    <p class="text-lg text-gray-600">Ten Virtues of Kō (香の十徳)</p>
+                </div>
+                <div class="space-y-4">
+                    <!-- Accordion Item 1 -->
+                    <div>
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors">
+                            <span class="font-serif text-lg text-kodo-dark">1. Sharpens the senses.</span>
+                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content bg-white px-5 rounded-b-lg">感格鬼神: Brings communication with the transcendent.</div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                    <div>
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors">
+                            <span class="font-serif text-lg text-kodo-dark">2. Purifies the body and the spirit.</span>
+                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content bg-white px-5 rounded-b-lg">清浄心身: Cleanses the mind and body.</div>
+                    </div>
+                     <!-- Add all 10 virtues here following the pattern -->
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">3. Eliminates pollutants.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">能払汚穢: Removes impurity.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">4. Awakens the spirit.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">能覚睡眠: Rouses you from sleep.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">5. Heals loneliness.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">静中成友: Becomes a companion in solitude.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">6. Calms in turbulent times.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">塵裏愉閑: Brings peace amid a busy life.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">7. Is not unpleasant, even in abundance.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">多而不厭: Is not overwhelming in quantity.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">8. Even in small amounts, it is sufficient.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">募而知足: Is satisfying even in small amounts.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">9. Does not decay over a long time.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">久蔵不朽: Does not spoil after a great deal of time.</div></div>
+                    <div><button class="accordion-button w-full flex justify-between items-center p-5 text-left bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"><span class="font-serif text-lg text-kodo-dark">10. A common use is not harmful.</span><svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="accordion-content bg-white px-5 rounded-b-lg">常用無障: Is harmless to use every day.</div></div>
+                </div>
+                 <p class="text-center mt-12 text-gray-700">These principles show Kōdō is a practice aimed at <strong>harmonizing the inner self with the outer world.</strong></p>
+            </div>
+        </section>
+
+        <!-- Section 4: The Language of Scent: Rikkoku-Gomi -->
+        <section id="language" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">The Grammar of Scent</h2>
+                    <p class="text-lg text-gray-600">Rikkoku-Gomi (六国五味)</p>
+                    <p class="max-w-3xl mx-auto mt-4">The sophisticated, poetic system for classifying fragrant woods, providing a shared language for a subjective experience.</p>
+                </div>
+                
+                <!-- Rikkoku -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-serif text-center text-kodo-dark mb-8">The Six Countries (六国, Rikkoku): An Olfactory Map</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Kyara (伽羅): The Aristocrat</h4>
+                            <p class="text-sm">Highest quality; gentle, dignified, graceful. Possesses all five tastes. From Vietnam/Cambodia.</p>
+                        </div>
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Rakoku (羅国): The Warrior</h4>
+                            <p class="text-sm">Sharp, pungent, bitter; reminiscent of a samurai. From Thailand/Laos.</p>
+                        </div>
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Manaka (真那伽): The Fickle Woman</h4>
+                            <p class="text-sm">Light, enticing, changeable; like the mood of a woman. From Malacca, Malaysia.</p>
+                        </div>
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Manaban (真南蛮): The Peasant</h4>
+                            <p class="text-sm">Predominantly sweet, coarse, unrefined. Origin uncertain.</p>
+                        </div>
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Sumotara (寸聞多羅): The Servant in Disguise</h4>
+                            <p class="text-sm">Noted for sourness; can be mistaken for Kyara but has something "ill-bred". From Sumatra.</p>
+                        </div>
+                        <div class="bg-kodo-cream p-6 rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300">
+                            <h4 class="font-serif text-xl text-kodo-green mb-2">Sasora (佐曾羅): The Monk</h4>
+                            <p class="text-sm">Cool and sour, light and faint; likened to a monk. Thought to be from India.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gomi -->
+                <div>
+                    <h3 class="text-2xl font-serif text-center text-kodo-dark mb-8">The Five Tastes (五味, Gomi): A Synesthetic Vocabulary</h3>
+                    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                        <div class="p-4 bg-kodo-cream rounded-lg"><h4 class="font-serif text-kodo-green">Sweet (甘)</h4><p class="text-xs">Honey, sugar</p></div>
+                        <div class="p-4 bg-kodo-cream rounded-lg"><h4 class="font-serif text-kodo-green">Sour (酸)</h4><p class="text-xs">Plums, acid</p></div>
+                        <div class="p-4 bg-kodo-cream rounded-lg"><h4 class="font-serif text-kodo-green">Hot (辛)</h4><p class="text-xs">Red peppers</p></div>
+                        <div class="p-4 bg-kodo-cream rounded-lg"><h4 class="font-serif text-kodo-green">Salty (鹹)</h4><p class="text-xs">Dried seaweed</p></div>
+                        <div class="p-4 bg-kodo-cream rounded-lg"><h4 class="font-serif text-kodo-green">Bitter (苦)</h4><p class="text-xs">Herbal medicine</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: The Two Great Houses -->
+        <section id="schools" class="py-20 md:py-32 bg-kodo-cream">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">Paths Diverge</h2>
+                    <p class="text-lg text-gray-600">Oie-ryū and Shino-ryū</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    <!-- Oie-ryū -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <img src="https://placehold.co/600x400/C0A062/FFFFFF?text=Ornate+Lacquerware" alt="Ornate Oie-ryū tools" class="w-full h-48 object-cover rounded-md mb-6">
+                        <h3 class="text-3xl font-serif text-kodo-green mb-4">Oie-ryū (御家流)</h3>
+                        <div class="space-y-3 text-gray-700">
+                            <p><strong class="font-semibold text-kodo-dark">Founder:</strong> Sanetaka Sanjonishi (Court Noble)</p>
+                            <p><strong class="font-semibold text-kodo-dark">Context:</strong> Kōdō of the aristocrats (kuge), connected to Heian court culture.</p>
+                            <p><strong class="font-semibold text-kodo-dark">Philosophy:</strong> Focus on literary and aesthetic enjoyment (tanoshimi); a relaxed, fluid, emotional experience.</p>
+                            <p><strong class="font-semibold text-kodo-dark">Aesthetics:</strong> "Gorgeous, ornate lacquerware tools" (kareina makie no kōdōgu) with gold and silver.</p>
+                        </div>
+                    </div>
+                    <!-- Shino-ryū -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <img src="https://placehold.co/600x400/5A6D57/FFFFFF?text=Simple+Wood+Tools" alt="Simple Shino-ryū tools" class="w-full h-48 object-cover rounded-md mb-6">
+                        <h3 class="text-3xl font-serif text-kodo-green mb-4">Shino-ryū (志野流)</h3>
+                        <div class="space-y-3 text-gray-700">
+                            <p><strong class="font-semibold text-kodo-dark">Founder:</strong> Sōshin Shino (Samurai)</p>
+                            <p><strong class="font-semibold text-kodo-dark">Context:</strong> Spread through samurai (buke) and merchant classes.</p>
+                            <p><strong class="font-semibold text-kodo-dark">Philosophy:</strong> More systematic; a form of spiritual and mental discipline with strict etiquette and perfection of form.</p>
+                            <p><strong class="font-semibold text-kodo-dark">Aesthetics:</strong> "Plain, unadorned wood tools" (kiji no kōdōgu), reflecting an austere samurai aesthetic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: The Path of Mastery -->
+        <section id="mastery" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">The Way of Art (Geidō)</h2>
+                    <p class="text-lg text-gray-600">Mastery Through Shu-Ha-Ri</p>
+                </div>
+                <div class="max-w-5xl mx-auto">
+                    <div class="flex flex-col md:flex-row justify-center items-center md:items-start text-center gap-8">
+                        <!-- Shu -->
+                        <div class="mastery-stage w-full md:w-1/3 p-6">
+                            <div class="text-6xl font-serif text-kodo-gold mb-4">守</div>
+                            <h3 class="text-2xl font-serif text-kodo-green mb-2">Shu (To Protect)</h3>
+                            <p>Mastering fundamentals by faithfully following a master. Rigorous study of established schools and perfecting ceremonial procedure (temae).</p>
+                        </div>
+                        <!-- Ha -->
+                        <div class="mastery-stage w-full md:w-1/3 p-6 border-t-2 md:border-t-0 md:border-l-2 md:border-r-2 border-kodo-gold/20">
+                            <div class="text-6xl font-serif text-kodo-gold mb-4">破</div>
+                            <h3 class="text-2xl font-serif text-kodo-green mb-2">Ha (To Break)</h3>
+                            <p>Questioning and adapting traditions. Experimenting with new kumikō, developing a new scent vocabulary, and adapting etiquette.</p>
+                        </div>
+                        <!-- Ri -->
+                        <div class="mastery-stage w-full md:w-1/3 p-6 border-t-2 md:border-t-0 border-kodo-gold/20">
+                            <div class="text-6xl font-serif text-kodo-gold mb-4">離</div>
+                            <h3 class="text-2xl font-serif text-kodo-green mb-2">Ri (To Transcend)</h3>
+                            <p>True mastery and natural freedom. Codifying the new ryū's unique philosophy and becoming a source of the tradition. "<span class="italic">We will be our own Ryu.</span>"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7, 8, 9 placeholder -->
+        <!-- These sections are text-heavy and will be styled similarly to the above. -->
+        <section id="synesthesia" class="py-20 md:py-32 bg-kodo-cream">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">Beyond Sight and Smell</h2>
+                    <p class="text-lg text-gray-600">The Synesthetic Heart of Kōdō</p>
+                </div>
+                <div class="space-y-8 text-lg leading-relaxed text-justify bg-white p-8 rounded-lg shadow-md">
+                    <p>A profound aspect of Kōdō is its deep-seated reliance on <strong>synesthetic aesthetics</strong>. The most fundamental expression is that one does not merely "smell" (kagu) incense; one <strong>"listens" (kiku)</strong> to it. This practice, <em class="font-serif text-kodo-green">monkō</em> (聞香, "listening to incense"), reframes perception as active, meditative engagement.</p>
+                    <p>This is validated by Japanese incense scholarship, which has associated specific fragrances with musical notes, affirming that cross-modal perception is part of the tradition. This aesthetic of restraint connects to <em class="font-serif text-kodo-green">wabi-sabi</em> (侘寂), finding beauty in transience and imperfection, where the silence between scents is as important as the notes themselves.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="authenticity" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">Forging a New Path</h2>
+                    <p class="text-lg text-gray-600">Authenticity in a Global Kōdō</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-kodo-cream p-8 rounded-lg shadow-sm">
+                        <blockquote class="text-xl font-serif text-center text-kodo-green border-l-4 border-kodo-gold pl-4 italic">
+                            "To Pretend to be [Japanese] is a Fallacy"
+                        </blockquote>
+                        <p class="mt-4 text-gray-700">This rejection of pretense is a critical act of integrity. Authenticity here means sincerity of approach, not ethnic identity. Cultural humility is the bedrock for genuine practice.</p>
+                    </div>
+                    <div class="bg-kodo-cream p-8 rounded-lg shadow-sm">
+                        <blockquote class="text-xl font-serif text-center text-kodo-green border-r-4 border-kodo-gold pr-4 italic">
+                            "We Will Be Our Own Ryu"
+                        </blockquote>
+                        <p class="mt-4 text-gray-700">This is creative agency, not a rejection of tradition. Kōdō's history is one of evolution and branching schools. Creating a new ryū continues this dynamic, keeping the tradition alive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="codifying" class="py-20 md:py-32 bg-kodo-cream">
+             <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-kodo-green mb-2">Shaping the Future</h2>
+                    <p class="text-lg text-gray-600">Codifying a New Ryū</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="font-serif text-2xl text-kodo-dark mb-6">Recommendations for an Emergent Ryū:</h3>
+                    <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                        <li><strong>Honor the Source (The Shu Stage):</strong> Legitimacy rests on deep mastery of the source tradition. Focus on rigorous study of Oie-ryū and Shino-ryū teachings.</li>
+                        <li><strong>Develop a Unique Lexicon (The Ha Stage):</strong> Adapt the Rikkoku-Gomi system. Develop your own evocative descriptors drawing on shared cultural touchstones.</li>
+                        <li><strong>Create New Kumikō (The Ha Stage):</strong> While practicing traditional games, create new kumikō based on stories and poems meaningful to your community.</li>
+                        <li><strong>Document the Way (The Ri Stage):</strong> Maintain detailed records of the school's journey—its lexicon, games, and philosophy. This becomes your foundational text.</li>
+                        <li><strong>Embrace the Path:</strong> A "Way" (dō) is a journey, not a destination. Engage in the living, evolving process with humility, discipline, and creative courage.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-kodo-green text-kodo-cream mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>A journey into the Way of Fragrance.</p>
+            <p class="text-sm mt-2 opacity-70">&copy; 2025 Kōdō Exploration. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu on link click
+            const navLinksMobile = mobileMenu.querySelectorAll('a');
+            navLinksMobile.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Accordion for Ten Virtues
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Optional: Close other accordions when one is opened
+                    // accordionButtons.forEach(otherButton => {
+                    //     if (otherButton !== button) {
+                    //         otherButton.classList.remove('active');
+                    //         otherButton.querySelector('svg').classList.remove('rotate-180');
+                    //     }
+                    // });
+                    button.classList.toggle('active');
+                    button.querySelector('svg').classList.toggle('rotate-180');
+                });
+            });
+            
+            // Timeline expand/collapse
+            const timelineButtons = document.querySelectorAll('.timeline-button');
+            timelineButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                })
+            });
+
+            // Active Nav Link Highlighting on Scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active-nav');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active-nav');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
